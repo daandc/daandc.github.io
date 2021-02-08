@@ -77,7 +77,7 @@ function level1() {
 }
 
 /**
- * hier mee bepaal je de hoeveelste led de gele led is
+ * hier mee kun je bepalen de hoeveelste led de gele led is
  */
 function ledNrCursor()
 {
