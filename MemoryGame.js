@@ -8,6 +8,7 @@ let nummer
 let checkLedNr = 0;
 let streak = 0
 let drawAan = 2;
+
 async function setup() {
     matrix.init()
     frameRate(5)
@@ -90,7 +91,6 @@ function setLedNr(nr,state) {
     let col = nr%WIDTH
     matrix.setLed(row, col, state, color('white'))
 }
-
 /**
  * bepaald de nummer van de rode ledjes
  */
@@ -110,7 +110,6 @@ function setLedNrJuist(nr,state) {
 /**
  * deze functie start een nieuw level
  */
-
   async function startLevel() {
       level1();
     await sleep(1000)
@@ -142,7 +141,6 @@ async function checkSpacebar() {
         checkJuist()
       }
     }
-
 async function checkJuist(){
     if(nummer==nrG1[checkLedNr]){
         checkLedNr++
@@ -164,7 +162,6 @@ async function checkJuist(){
         location.reload();
     }
 }
-
 async function fout()
 {
      setLedNrFout(0)
