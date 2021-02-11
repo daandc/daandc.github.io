@@ -73,9 +73,7 @@ function level1() {
         nrG1[i] = random(numbers)
         //nrG1[i] = i
     }
-
 }
-
 /**
  * hier mee kun je bepalen de hoeveelste led de gele led is
  */
