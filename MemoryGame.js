@@ -92,16 +92,7 @@ function setLedNr(nr,state) {
     let col = nr%WIDTH
     matrix.setLed(row, col, state, color('white'))
 }
-function setLedNr1(nr,state) {
-    let row = Math.floor(nr / WIDTH)
-    let col = nr%WIDTH
-    matrix.setLed(row, col, state, color('white'))
-}
-function setLedNr2(nr,state) {
-    let row = Math.floor(nr / WIDTH)
-    let col = nr%WIDTH
-    matrix.setLed(row, col, state, color('white'))
-}
+
 /**
  * bepaald de nummer van de rode ledjes
  */
