@@ -8,11 +8,13 @@ let nummer
 let checkLedNr = 0;
 let streak = 0
 let drawAan = 2;
-
+let games = []
+let highScore = 0
 async function setup() {
     matrix.init()
     frameRate(5)
     document.getElementById("streak").innerHTML = streak;
+    document.getElementById("highscore").innerHTML = highScore;
     startLevel()
     await sleep(5000)
     drawAan = 1
@@ -71,44 +73,49 @@ function level1() {
 
     for (let i = 0; i < 3; i++) 
     {
-        nrG1[i] = random(numbers)
-        //nrG1[i] = i
+        //nrG1[i] = random(numbers)
+        nrG1[i] = i
     }
 }
+
 /**
- * hier mee kun je bepalen de hoeveelste led de gele led is
+ * hier mee bepaal je de hoeveelste led de gele led is
  */
 function ledNrCursor()
 {
     nummer = r * WIDTH + c
     console.log("gele led is : ", nummer);
 }
+
 /**
- * bepaald de nummer van de witte ledjes
+ * bepaalt de nummer van de witte ledjes
  */
 function setLedNr(nr,state) {
     let row = Math.floor(nr / WIDTH)
     let col = nr%WIDTH
     matrix.setLed(row, col, state, color('white'))
 }
+
 /**
- * bepaald de nummer van de rode ledjes
+ * bepaalt de nummer van de rode ledjes
  */
 function setLedNrFout(nr,state) {
     let row = Math.floor(nr / WIDTH)
     let col = nr%WIDTH
     matrix.setLed(row, col, state, color('red'))
 }
+
 /**
- * bepaald de nummer van de groene ledjes
+ * bepaalt de nummer van de groene ledjes
  */
 function setLedNrJuist(nr,state) {
     let row = Math.floor(nr / WIDTH)
     let col = nr%WIDTH
     matrix.setLed(row, col, state, color('green'))
 }
+
 /**
- * deze functie start een nieuw level
+ * bepaalt deze functie start een nieuw level
  */
   async function startLevel() {
       level1();
@@ -130,17 +137,21 @@ function setLedNrJuist(nr,state) {
       checkLedNr = 0;
 }
 /**
- * deze functie checkt of de spacebar is ingedrukt e
+ * deze functie checkt of de spacebar is ingedrukt 
  * laat je naar het volgende level gaan als het juist is 
  * laat je opnieuw beginnen als het fout is
  * laat de streak naar boven gaan
  */
 async function checkSpacebar() {
-    if (keyIsDown(32)) {
-        console.log("space is ingedrukt");
-        checkJuist()
-      }
+    if (keyIsPressed === true) {
+        if (keyIsDown(32)) {
+            console.log("space is ingedrukt");
+            checkJuist()
+            await sleep(800)
+        }
     }
+}
+
 async function checkJuist(){
     if(nummer==nrG1[checkLedNr]){
         checkLedNr++
@@ -157,11 +168,22 @@ async function checkJuist(){
     }
     else
     {  
+        drawAan = 2
+        if(highScore < streak)
+        {
+            highScore = streak
+        }
+        document.getElementById("highscore").innerHTML = highScore;
+        streak = 0
+        document.getElementById("streak").innerHTML = streak;
         fout()
         await sleep(1000)
-        location.reload();
+        drawAan = 2
+        redraw();
+        startLevel()
     }
 }
+
 async function fout()
 {
      setLedNrFout(0)
@@ -184,6 +206,7 @@ async function fout()
      await sleep(1000)
      console.log("fout ! restarten ...");
 }
+
 async function juist(){
     
     setLedNrJuist(33)
@@ -197,15 +220,18 @@ async function juist(){
     matrix.show()
     console.log('juist')
 }
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function levels() {
+    for (let a = 0; a <= 4; a++) {
+        for (let i = 0; i <= 63; i++) {
+            games[a][i] = random(numbers)
+        }
+    }
+}
 
 
-
-  
- 
-  
-  
   

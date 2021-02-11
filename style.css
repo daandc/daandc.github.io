@@ -23,11 +23,15 @@ h1 {
     font-weight: 700;
     margin-top: 10;
 }
-.smallpp
+table
 {
-  margin-top: 2;
-
-
+  text-align: center;
+  width: 15%;
+}
+h2
+{
+  font-weight: 700;
+  margin-top: 5 ;
 }
 
 .cr {
@@ -49,7 +53,8 @@ h1 {
     /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
-button {
+button 
+{
     background-color: rgb(49, 49, 49);
     color: white;
     border: 2px solidwhite; /* Green */
