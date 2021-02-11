@@ -73,8 +73,8 @@ function level1() {
 
     for (let i = 0; i < 3; i++) 
     {
-        //nrG1[i] = random(numbers)
-        nrG1[i] = i
+        nrG1[i] = random(numbers)
+        //nrG1[i] = i
     }
 }
 
