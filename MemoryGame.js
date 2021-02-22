@@ -1,3 +1,11 @@
+/** 
+ * Memory Game
+ * Een Led Game waarin er een aantal witte ledjes op het scherm komen, na een paar seconden verdwijnen die en moet je met de gele led naar de 
+ * plaats van de witte ledjes gaan in volgorde.
+ * je kunt de gele led bewegen met de joystick en als je denkt dat je op de juiste plaats bent moet je op de spacebar drukken.
+ * @authors Yorrit Simons , Daan De Corte
+ * @version v1.0 - Februari 2021
+ */
 let matrix = new Matrix(WIDTH, HEIGHT);
 let r = 3
 let c = 2
@@ -8,8 +16,8 @@ let nummer
 let checkLedNr = 0;
 let streak = 0
 let drawAan = 2;
-let games = []
 let highScore = 0
+
 async function setup() {
     matrix.init()
     frameRate(5)
@@ -19,6 +27,7 @@ async function setup() {
     await sleep(5000)
     drawAan = 1
 }
+
 function draw() {
     if(drawAan == 1)
     {
@@ -26,7 +35,7 @@ function draw() {
     }
 }
 /**
- * Bepaald op welke plaats het ledje moet staan volgens de joystick
+ * Bepaalt op welke plaats het ledje moet staan volgens de joystick
  */
  function joyStick() {
         matrix.clear()
@@ -56,15 +65,19 @@ function draw() {
             ledNrCursor()
         }
         matrix.show()
+        
 }
 /**
- * dient om de gele led zijn plaats te geven
+ * Dient om de gele led zijn plaats te geven
+ * @param row De rij van de gele led in de matrix
+ * @param col De kolom van de gele led in de matrix
  */
 function showLed(row, col) {
     matrix.setLed(row, col, true, color('yellow'))
 }
 /**
  * maakt 3 random nummers aan voor de ledjes van level 1
+ * @return {let} 3 random gegenereerde nummers van 0 tot 63
  */
 function level1() {
     for (let i = 0; i <= 63; i++){
@@ -75,11 +88,17 @@ function level1() {
     {
         nrG1[i] = random(numbers)
         //nrG1[i] = i
+        
+    }
+    if(nrG1[0] == nrG1[1] || nrG1[2] == nrG1[1] || nrG1[0] == nrG1[2]) {
+        level1()
+        console.log("opnieuw");
     }
 }
 
 /**
- * hier mee bepaal je de hoeveelste led de gele led is
+ * Deze functie bepaalt de nummer van de gele led om deze later te kunnen gebruiken
+ * @return {let} De nummer van de led
  */
 function ledNrCursor()
 {
@@ -89,24 +108,25 @@ function ledNrCursor()
 
 /**
  * bepaalt de nummer van de witte ledjes
+ * @param nr Het opgegeven nummer van de witte led
  */
 function setLedNr(nr,state) {
     let row = Math.floor(nr / WIDTH)
     let col = nr%WIDTH
     matrix.setLed(row, col, state, color('white'))
 }
-
 /**
- * bepaalt de nummer van de rode ledjes
+ * bepaalt de nummer van de rode ledjes voor het kruisje als je een foute led aanduidt
+ * @param nr Het opgegeven nummer van de rode ledjes
  */
 function setLedNrFout(nr,state) {
     let row = Math.floor(nr / WIDTH)
     let col = nr%WIDTH
     matrix.setLed(row, col, state, color('red'))
 }
-
 /**
- * bepaalt de nummer van de groene ledjes
+ * bepaalt de nummer van de groene ledjes voor het vinkje als je een correcte led aanduidt
+ * @param nr Het opgegeven nummer van de groene ledjes
  */
 function setLedNrJuist(nr,state) {
     let row = Math.floor(nr / WIDTH)
@@ -122,15 +142,15 @@ function setLedNrJuist(nr,state) {
     await sleep(1000)
       matrix.clear()
       setLedNr(nrG1[0])
-      //console.log(nrG1[0]);
+      console.log(nrG1[0]);
       matrix.show();
     await sleep(1000);
       setLedNr(nrG1[1])
-      //console.log(nrG1[1]);
+      console.log(nrG1[1]);
       matrix.show();
     await sleep(1000);
       setLedNr(nrG1[2])
-      //console.log(nrG1[2]);
+      console.log(nrG1[2]);
       matrix.show();
     await sleep(1000)
       drawAan = 1;
@@ -151,7 +171,6 @@ async function checkSpacebar() {
         }
     }
 }
-
 async function checkJuist(){
     if(nummer==nrG1[checkLedNr]){
         checkLedNr++
@@ -183,8 +202,10 @@ async function checkJuist(){
         startLevel()
     }
 }
-
-async function fout()
+/**
+ * Maakt de nodige ledjes rood zodat het op een kruis lijkt
+ */
+function fout()
 {
      setLedNrFout(0)
      setLedNrFout(9)
@@ -203,11 +224,12 @@ async function fout()
      setLedNrFout(49)
      setLedNrFout(56)
      matrix.show()
-     await sleep(1000)
-     console.log("fout ! restarten ...");
+     console.log("fout");
 }
-
-async function juist(){
+/**
+ * Maakt de nodige ledjes groen zodat het op een vinkje lijkt
+ */
+function juist(){
     
     setLedNrJuist(33)
     setLedNrJuist(24)
@@ -220,18 +242,10 @@ async function juist(){
     matrix.show()
     console.log('juist')
 }
-
+/**
+ * Deze functie werkt als een delay
+ * @param ms Het aantal milliseconden dat je je functie wilt pauzeren
+ */
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
-
-function levels() {
-    for (let a = 0; a <= 4; a++) {
-        for (let i = 0; i <= 63; i++) {
-            games[a][i] = random(numbers)
-        }
-    }
-}
-
-
-  
