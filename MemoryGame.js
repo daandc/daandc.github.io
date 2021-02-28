@@ -27,11 +27,10 @@ async function setup() {
     await sleep(5000)
     drawAan = 1
 }
-
 function draw() {
     if(drawAan == 1)
     {
-        setTimeout(() => { joyStick() }, 100);
+        joyStick()
     }
 }
 /**
@@ -174,7 +173,6 @@ async function checkJuist(){
         }
     }
     else{  
-        drawAan = 2
         if(highScore < streak){
             highScore = streak
         }
@@ -182,32 +180,22 @@ async function checkJuist(){
         streak = 0
         document.getElementById("streak").innerHTML = streak;
         fout()
-        await sleep(1000)
         drawAan = 2
+        await sleep(100)
+        startLevel() 
         redraw();
-        startLevel()
     }
 }
 /**
  * Maakt de nodige ledjes rood zodat het op een kruis lijkt
  */
 function fout(){
-     setLedNrFout(0)
-     setLedNrFout(9)
-     setLedNrFout(18)
-     setLedNrFout(27)
-     setLedNrFout(36)
-     setLedNrFout(45)
-     setLedNrFout(54)
-     setLedNrFout(63)
-     setLedNrFout(7)
-     setLedNrFout(14)
-     setLedNrFout(21)
-     setLedNrFout(28)
-     setLedNrFout(35)
-     setLedNrFout(42)
-     setLedNrFout(49)
-     setLedNrFout(56)
+    for (let j = 0; j <= 63; j=j+9) {
+        setLedNrFout(j)
+    }
+    for (let j = 7; j <= 56; j=j+7) {
+        setLedNrFout(j)
+    } 
      matrix.show()
 }
 /**
