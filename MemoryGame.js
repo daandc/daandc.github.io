@@ -93,7 +93,6 @@ function level1() {
 function ledNrCursor()
 {
     nummer = r * WIDTH + c
-    console.log("gele led is : ", nummer);
 }
 
 /**
