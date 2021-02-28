@@ -44,28 +44,23 @@ function draw() {
         let x = readJoystickX()
         let y = readJoystickY()
     
-        if (x > 900 && c < WIDTH - 1)
-        {
+        if (x > 900 && c < WIDTH - 1){
             c++   
             ledNrCursor()
         }
-        else if (x < 100 && c > 0)
-        {
+        else if (x < 100 && c > 0){
             c--
             ledNrCursor()
         }
-        else if (y > 900 && r > 0)
-        {
+        else if (y > 900 && r > 0){
             r--
             ledNrCursor()
         }
-        else if (y < 100 && r < HEIGHT - 1)
-        {
+        else if (y < 100 && r < HEIGHT - 1){
             r++ 
             ledNrCursor()
         }
-        matrix.show()
-        
+        matrix.show()   
 }
 /**
  * Dient om de gele led zijn plaats te geven
@@ -83,16 +78,12 @@ function level1() {
     for (let i = 0; i <= 63; i++){
       numbers[i] = (i)
     }
-
     for (let i = 0; i < 3; i++) 
     {
         nrG1[i] = random(numbers)
-        //nrG1[i] = i
-        
     }
     if(nrG1[0] == nrG1[1] || nrG1[2] == nrG1[1] || nrG1[0] == nrG1[2]) {
         level1()
-        console.log("opnieuw");
     }
 }
 
@@ -142,15 +133,12 @@ function setLedNrJuist(nr,state) {
     await sleep(1000)
       matrix.clear()
       setLedNr(nrG1[0])
-      console.log(nrG1[0]);
       matrix.show();
     await sleep(1000);
       setLedNr(nrG1[1])
-      console.log(nrG1[1]);
       matrix.show();
     await sleep(1000);
       setLedNr(nrG1[2])
-      console.log(nrG1[2]);
       matrix.show();
     await sleep(1000)
       drawAan = 1;
@@ -185,11 +173,9 @@ async function checkJuist(){
             startLevel()
         }
     }
-    else
-    {  
+    else{  
         drawAan = 2
-        if(highScore < streak)
-        {
+        if(highScore < streak){
             highScore = streak
         }
         document.getElementById("highscore").innerHTML = highScore;
@@ -205,8 +191,7 @@ async function checkJuist(){
 /**
  * Maakt de nodige ledjes rood zodat het op een kruis lijkt
  */
-function fout()
-{
+function fout(){
      setLedNrFout(0)
      setLedNrFout(9)
      setLedNrFout(18)
@@ -224,13 +209,11 @@ function fout()
      setLedNrFout(49)
      setLedNrFout(56)
      matrix.show()
-     console.log("fout");
 }
 /**
  * Maakt de nodige ledjes groen zodat het op een vinkje lijkt
  */
 function juist(){
-    
     setLedNrJuist(33)
     setLedNrJuist(24)
     setLedNrJuist(42)
@@ -240,7 +223,6 @@ function juist(){
     setLedNrJuist(30)
     setLedNrJuist(23)
     matrix.show()
-    console.log('juist')
 }
 /**
  * Deze functie werkt als een delay
