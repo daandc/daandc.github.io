@@ -42,7 +42,6 @@ function draw() {
         showLed(r, c)
         let x = readJoystickX()
         let y = readJoystickY()
-    
         if (x > 900 && c < WIDTH - 1){
             c++   
             ledNrCursor()
@@ -144,9 +143,6 @@ function setLedNrJuist(nr,state) {
 }
 /**
  * deze functie checkt of de spacebar is ingedrukt 
- * laat je naar het volgende level gaan als het juist is 
- * laat je opnieuw beginnen als het fout is
- * laat de streak naar boven gaan
  */
 async function checkSpacebar() {
     if (keyIsPressed === true) {
@@ -157,8 +153,23 @@ async function checkSpacebar() {
         }
     }
 }
+/**
+ * als de space bar is ingedrukt gaat deze functie na of je het juiste ledje hebt gekose
+ */
 async function checkJuist(){
     if(nummer==nrG1[checkLedNr]){
+        alsJuist()
+    }
+    else{  
+        alsFout()
+    }
+}
+/**
+ * als je het juiste ledje hebt aangeduid verschijnt er een vinkje op het scherm
+ * als je 3 keer na elkaar het juiste ledje hebt aangeduid gaat de score naar boven en start het volgende level
+ */
+    async function alsJuist()
+    {
         checkLedNr++
         juist()
         if(checkLedNr >= 3)
@@ -170,8 +181,14 @@ async function checkJuist(){
             drawAan = 2
             startLevel()
         }
-    }
-    else{  
+} 
+/**
+ * als je het foute ledje hebt aangeduid verschijnt er een kruisje op het scherm
+ * de score reset naar nul en de highscore krijgt de waarde van je score (behalve als die score lager is dan je highscore)
+ * er word ook een nieuw level gestart
+ */
+    async function alsFout()
+    {
         if(highScore < streak){
             highScore = streak
         }
@@ -184,7 +201,6 @@ async function checkJuist(){
         startLevel() 
         redraw();
     }
-}
 /**
  * Maakt de nodige ledjes rood zodat het op een kruis lijkt
  */
